@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Year in Progress</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f8ff;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      h1 {
+        font-size: 2.5rem;
+        color: #4989a7;
+      }
+      p {
+        color: #4989a7;
+        font-size: 1.5rem;
+      }
+      progress {
+        width: 90%;
+        max-width: 800px;
+        height: 20px;
+        border: none;
+        border-radius: 10px;
+      }
+      progress::-webkit-progress-bar {
+        border-radius: 10px;
+        background-color: #e0e0e0;
+      }
+      progress::-webkit-progress-value {
+        border-radius: 10px;
+        background: linear-gradient(0.25turn, #d0f0ff, #7dd6ff);
+      }
+      progress::-moz-progress-bar {
+        border-radius: 10px;
+        background: linear-gradient(0.25turn, #d0f0ff, #7dd6ff);
+      }
+
+      /* Special styling for end of year */
+      progress.eoy::-webkit-progress-bar {
+        background-color: #ff4b4b;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="year-in-progress"></h1>
+    <progress max="100" value="0"></progress>
+    <p>How's your new year resolution going?</p>
+
+    <script>
+      const now = new Date();
+      const year = now.getFullYear();
+      const start = new Date(year, 0, 1);
+      const end = new Date(year + 1, 0, 1);
+      const progress = (((now - start) / (end - start)) * 100).toFixed(1);
+
+      // Update progress text and bar
+      document.getElementById(
+        "year-in-progress"
+      ).textContent = `${year} is ${progress}% complete`;
+
+      const progressBar = document.querySelector("progress");
+      progressBar.value = progress;
+
+      // Add special styling for end of year
+      if (progress >= 95) {
+        progressBar.classList.add("eoy");
+      }
+    </script>
+  </body>
+</html>
